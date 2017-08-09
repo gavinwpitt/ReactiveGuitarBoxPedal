@@ -1,16 +1,19 @@
 /*
- * Arduino Guitar Tuner
- * by Nicole Grimwood
+ * ReactiveGuitarBoxPedal
+ * by Gavin Pitt
  *
- * For more information please visit:
- * https://www.instructables.com/id/Arduino-Guitar-Tuner/
+ * This code interprets an electric signal coming in via guitar/bass guitar.
+ * The pedal lights up depending on the noise coming from the guitar signal.
+ *
+ * There is some code to add fuctionality for pitch control, but I cannot currently
+ * get it to work as smoothly as I'd like. Instead it detects only incoming noise.
  *
  * Based upon:
  * Arduino Frequency Detection
  * created October 7, 2012
+ * http://www.instructables.com/id/Arduino-Frequency-Detection/
  * by Amanda Ghassaei
  *
- * This code is in the public domain. 
 */
 
 #include "LightControls.h"
