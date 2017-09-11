@@ -5,7 +5,7 @@ void setupNoteHandling();
 
 void changeLightsByNote(int period);
 
-void changeLightsByNoise(int noteDown);
+void changeLightsByNoise(int noteDown, int volume);
 
 //Compare the frequency input to the correct 
 //frequency and light up the appropriate LEDS

@@ -42,6 +42,7 @@ int noteDown;
 int sustainTime;
 int volumeMax;
 int volumeCheckRate;
+int volumeCheckCount;
 int repeatFlat;
 
 int crawlingTestNumber;
@@ -208,7 +209,7 @@ ISR(ADC_vect) {//when new ADC value ready
       }else{
         changeLightsByNoise(noteDown, volumeMax);
         volumeMax = 0;
-        volumeCheckCount = volumeCheckRate
+        volumeCheckCount = volumeCheckRate;
       }
       sustainCheck = sustainTime;
       noteDown = 1;
@@ -291,7 +292,7 @@ void loop(){
     if(switchMode == 0){
       changeLightsByNote(period);
     }else if(switchMode == 1){
-      changeLightsByNoise(noteDown);
+      //changeLightsByNoise(noteDown, volume);
     }else if(switchMode == 2){
       changeLightsByNoteSpectrum(period);
     }else{

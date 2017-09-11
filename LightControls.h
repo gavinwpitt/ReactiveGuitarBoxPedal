@@ -3,7 +3,8 @@
 
 // Constants for Lights
 #define INTENSITY 127
-#define DECAYRATE 20
+#define DECAYRATE 10
+#define FADETIME 25
 #define FADEINRATE 2
 #define REDPIN 5
 #define GREENPIN 3

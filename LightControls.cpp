@@ -48,14 +48,21 @@ void setupColors(){
 
 void dimLights(){
   currentMillisFadeTime = millis();
-  if(abs(previousMillisFadeTime - currentMillisFadeTime) > DECAYRATE){
+  if(abs(previousMillisFadeTime - currentMillisFadeTime) > FADETIME){
     previousMillisFadeTime = currentMillisFadeTime;
     if(redValue > 0)
-      redValue--;
+      redValue -= redTargetValue/FADETIME;
     if(greenValue > 0)
-      greenValue--;
+      greenValue -= greenTargetValue/FADETIME;
     if(blueValue > 0)
-      blueValue--;
+      blueValue -= blueTargetValue/FADETIME;
+    
+    if(redValue < 0)
+      redValue = 0;
+    if(greenValue < 0)
+      greenValue = 0;
+    if(blueValue < 0)
+      blueValue = 0;
     writeColor();
   }
 }
@@ -67,9 +74,9 @@ void writeColor(){
 } 
 
 void changeTargetValuesDiscrete(int note, int volume){
-  redTargetValue = colors[note].red;
-  greenTargetValue = colors[note].green;
-  blueTargetValue = colors[note].blue;
+  redTargetValue = colors[note].red * volume;
+  greenTargetValue = colors[note].green * volume;
+  blueTargetValue = colors[note].blue * volume;
   currentMillisTime = millis();
   if(abs(previousMillisTime - currentMillisTime) > FADEINRATE){
     previousMillisTime = currentMillisTime;
