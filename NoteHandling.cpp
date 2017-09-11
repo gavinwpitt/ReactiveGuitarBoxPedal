@@ -71,7 +71,7 @@ void adjustSpectrumBounds(int lowerBoundInput, int upperBoundInput){
    lowerBound = lowerBoundInput;
 }
 
-void changeLightsByNoise(int noteDown){
+void changeLightsByNoise(int noteDown, int volume){
   // If no note is down (noteDown == 1), change selectedNote and do nothing?
   if(noteDown == 0){
     if(selectedNote >= 11){
@@ -80,7 +80,7 @@ void changeLightsByNoise(int noteDown){
       selectedNote ++;
     }
   }else{
-    changeTargetValuesDiscrete(selectedNote, 1);
+    changeTargetValuesDiscrete(selectedNote, volume);
   }
 }
 

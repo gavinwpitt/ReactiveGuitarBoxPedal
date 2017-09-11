@@ -66,10 +66,10 @@ void writeColor(){
   analogWrite(BLUEPIN, blueValue);
 } 
 
-void changeTargetValuesDiscrete(int note, int octave){
-  redTargetValue = colors[note].red * INTENSITY;
-  greenTargetValue = colors[note].green * INTENSITY;
-  blueTargetValue = colors[note].blue  * INTENSITY;
+void changeTargetValuesDiscrete(int note, int volume){
+  redTargetValue = colors[note].red;
+  greenTargetValue = colors[note].green;
+  blueTargetValue = colors[note].blue;
   currentMillisTime = millis();
   if(abs(previousMillisTime - currentMillisTime) > FADEINRATE){
     previousMillisTime = currentMillisTime;

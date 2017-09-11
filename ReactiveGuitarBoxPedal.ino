@@ -40,6 +40,8 @@ int newSlope;//storage for incoming slope data
 int sustainCheck;
 int noteDown;
 int sustainTime;
+int volumeMax;
+int volumeCheckRate;
 int repeatFlat;
 
 int crawlingTestNumber;
@@ -91,7 +93,9 @@ void setup(){
   switchMode = 1;
   repeatFlat = 0;
   noteDown = 0;
-  sustainTime = 750;
+  sustainTime = 600;
+  volumeCheckRate = 300;
+  volumeCheckCount = 0;
   adjustSpectrumBounds(80, 600);
   cli();//disable interrupts
   
@@ -120,6 +124,7 @@ void setup(){
   sei();//enable interrupts
 }
 int newData1;
+
 ISR(ADC_vect) {//when new ADC value ready
   PORTB &= B11101111;//set pin 12 low
   prevData = newData;//store previous value
@@ -195,6 +200,16 @@ ISR(ADC_vect) {//when new ADC value ready
   }else if(switchMode == 1){
     // check if note is down, but this is handled at top of interupt function
     if(abs(127-ADCH)>ampThreshold){
+      if(volumeCheckCount > 0){
+        if(abs(127-newData) > volumeMax){
+          volumeMax = abs(127-newData);
+        }
+        volumeCheckCount--;
+      }else{
+        changeLightsByNoise(noteDown, volumeMax);
+        volumeMax = 0;
+        volumeCheckCount = volumeCheckRate
+      }
       sustainCheck = sustainTime;
       noteDown = 1;
     }else{
@@ -202,12 +217,15 @@ ISR(ADC_vect) {//when new ADC value ready
         sustainCheck--;
       }else{
         noteDown = 0;
-        changeLightsByNoise(noteDown);
+        volumeMax = 0;
       }
+      changeLightsByNoise(noteDown, volumeMax);
     }
+    
   }else{
   
   }
+
 }
 
 void reset(){//clean out some variables
